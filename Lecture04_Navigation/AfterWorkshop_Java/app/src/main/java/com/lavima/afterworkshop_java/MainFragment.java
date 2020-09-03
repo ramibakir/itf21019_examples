@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainFragment extends Fragment {
 
+    public static final String KEY_NAME = "name";
 
     public MainFragment() {
         // Required empty public constructor
@@ -41,14 +44,29 @@ public class MainFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OtherFragment otherFragment = new OtherFragment();
-                Bundle arguments = new Bundle();
-                arguments.putString("name", "Testnavn");
-                otherFragment.setArguments(arguments);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, otherFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                EditText editTextName = getActivity().findViewById(R.id.editTextName);
+                // If we are in dual view we can update textViewName directly
+                if (((MainActivity)getActivity()).IsDualView) {
+                    TextView textView = getActivity().findViewById(R.id.textViewName);
+                    textView.setText(editTextName.getText().toString());
+                }
+                // If not dual
+                else {
+                    // Create other fragment
+                    OtherFragment otherFragment = new OtherFragment();
+
+                    // Pass name in argument bundle
+                    Bundle arguments = new Bundle();
+                    arguments.putString(KEY_NAME, editTextName.getText().toString());
+                    otherFragment.setArguments(arguments);
+
+                    // Create transaction, replace fragment, add the current (previous) to back stack,
+                    // then commit
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, otherFragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
             }
         });
     }

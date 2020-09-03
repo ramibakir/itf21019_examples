@@ -33,8 +33,13 @@ public class OtherFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Make sure we have been provided arguments, if not return
         Bundle arguments = getArguments();
-        TextView textView = view.findViewById(R.id.textView);
-        textView.setText(arguments.getString("name"));
+        if (arguments == null)
+            return;
+
+        // Update the text view according to the specified argument
+        TextView textView = view.findViewById(R.id.textViewName);
+        textView.setText(arguments.getString(MainFragment.KEY_NAME));
     }
 }
