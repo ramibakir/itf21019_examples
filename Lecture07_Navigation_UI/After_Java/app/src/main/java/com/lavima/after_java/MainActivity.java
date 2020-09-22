@@ -23,13 +23,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        // Find navigation controller in the navigation host
         NavController controller = Navigation.findNavController(this, R.id.fragment);
 
-        BottomNavigationView bottonNavigation = findViewById(R.id.bottom_navigation);
-        NavigationUI.setupWithNavController(bottonNavigation, controller);
+        // This activates the bottom navigation menu. The menu item ids match destination ids so no explicit
+        // handling is necessary
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        NavigationUI.setupWithNavController(bottomNavigation, controller);
 
-
+        // This activates the navigation drawer. The menu ids match destination ids.
         NavigationView drawerView = findViewById(R.id.navigation_view);
         /*drawerView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

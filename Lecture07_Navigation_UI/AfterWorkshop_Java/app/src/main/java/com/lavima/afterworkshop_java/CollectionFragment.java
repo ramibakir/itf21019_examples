@@ -1,4 +1,4 @@
-package com.lavima.after_java;
+package com.lavima.afterworkshop_java;
 
 import android.os.Bundle;
 
