@@ -38,15 +38,16 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
 
         // Connect with navigation controller for automatic navigation
-        NavigationUI.setupWithNavController(bottomNavigation, controller);
+        //NavigationUI.setupWithNavController(bottomNavigation, controller);
         // Simple explicit navigation
-        //bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-        //    @Override
-        //    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        //        controller.navigate(menuItem.getItemId());
-        //        return true;
-        //    }
-        //});
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                controller.navigate(menuItem.getItemId());
+                menuItem.setChecked(true);
+                return true;
+            }
+        });
 
         // This will enable us to click the toolbar/appbar to open drawer
 
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 controller.navigate(menuItem.getItemId());
+                menuItem.setChecked(true);
                 drawerLayout.closeDrawers();
                 return true;
             }
